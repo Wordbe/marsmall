@@ -1,0 +1,25 @@
+spring.config.activate.on-profile: dev
+
+spring:
+  jpa:
+    open-in-view: false
+    properties:
+      jakarta.persistence.sharedCache.mode: UNSPECIFIED # default
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type.descriptor.sql.BasicBinder: trace
+        engine:
+          transaction:
+            internal:
+              TransactionImpl: DEBUG
+      springframework:
+        transaction: DEBUG
+
+---
+spring.config.activate.on-profile: prod

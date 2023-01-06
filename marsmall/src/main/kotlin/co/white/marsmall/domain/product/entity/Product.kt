@@ -7,7 +7,7 @@ import jakarta.persistence.Entity
 data class Product(
     var name: String,
     var price: Int,
-    private var deleted: Boolean = false,
+    var deleted: Boolean = false,
 ) : Audit() {
 
     constructor(id: Long?, name: String, price: Int) : this(name, price) {

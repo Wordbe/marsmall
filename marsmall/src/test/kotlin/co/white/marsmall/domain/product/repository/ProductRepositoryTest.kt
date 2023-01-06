@@ -1,7 +1,6 @@
-package co.white.marsmall.domain.product.service
+package co.white.marsmall.domain.product.repository
 
-import co.white.marsmall.domain.product.entity.Product
-import co.white.marsmall.domain.product.repository.ProductRepository
+import co.white.marsmall.domain.product.product
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,7 +26,7 @@ class ProductRepositoryTest {
     fun create() {
         val product = productRepository.save(product())
 
-        assertThat(product.id).isEqualTo(1L)
+        assertThat(product.id).isEqualTo(1)
     }
 
     @Rollback
@@ -37,6 +36,4 @@ class ProductRepositoryTest {
         productRepository.delete(product)
         assertThat(productRepository.findByIdOrNull(product.id)).isNull()
     }
-
-    private fun product() = Product("jelly", 1800)
 }

@@ -12,6 +12,9 @@ group = "co.white"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
+val mockkVersion = "1.13.3"
+val kotestVersion = "5.5.4"
+
 repositories {
     mavenCentral()
 }
@@ -26,6 +29,8 @@ dependencies {
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
 }
 
 tasks.withType<KotlinCompile> {

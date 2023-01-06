@@ -3,7 +3,7 @@ package co.white.marsmall.dto
 import co.white.marsmall.domain.product.entity.Product
 import java.time.LocalDateTime
 
-class ProductResponse(
+data class ProductResponse(
     val id: Long?,
     val name: String,
     val price: Int,

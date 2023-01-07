@@ -13,6 +13,7 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val mockkVersion = "1.13.3"
+val springMockkVersion = "4.0.0"
 val kotestVersion = "5.5.4"
 
 repositories {
@@ -26,10 +27,12 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:$kotestVersion")
 }
 

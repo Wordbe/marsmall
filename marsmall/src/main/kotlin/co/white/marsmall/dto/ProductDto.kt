@@ -25,9 +25,9 @@ data class ProductResponse(
     }
 }
 
-class ProductRequest(
-    private val name: String,
-    private val price: Int,
+data class ProductRequest(
+    val name: String,
+    val price: Int,
 ) {
     fun toEntity() = Product(
         name = name,

@@ -10,7 +10,7 @@ data class Product(
     var deleted: Boolean = false,
 ) : Audit() {
 
-    constructor(id: Long?, name: String, price: Int) : this(name, price) {
+    constructor(id: Long? = null, name: String, price: Int, deleted: Boolean = false) : this(name, price, deleted) {
         this.id = id
     }
 

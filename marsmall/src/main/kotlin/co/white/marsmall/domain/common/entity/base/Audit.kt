@@ -29,6 +29,7 @@ abstract class Audit (
     @LastModifiedBy
     var modifiedBy: String? = null,
 ) : Id(id) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Audit) return false
@@ -58,5 +59,4 @@ class CommonAuditorAware : AuditorAware<String> {
     override fun getCurrentAuditor(): Optional<String> {
         return Optional.of("marsmall")
     }
-
 }

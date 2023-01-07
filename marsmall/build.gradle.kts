@@ -28,6 +28,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.mariadb.jdbc:mariadb-java-client")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

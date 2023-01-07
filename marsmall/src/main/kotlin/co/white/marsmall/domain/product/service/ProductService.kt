@@ -3,6 +3,7 @@ package co.white.marsmall.domain.product.service
 import co.white.marsmall.domain.product.entity.Product
 import co.white.marsmall.domain.product.repository.ProductRepository
 import co.white.marsmall.dto.ProductResponse
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -30,5 +31,5 @@ class ProductService(
     }
 
     private fun findById(id: Long): Product =
-        productRepository.findByIdAndDeletedFalse(id) ?: throw IllegalArgumentException("No product exists. id: $id")
+        productRepository.findByIdAndDeletedFalse(id) ?: throw EntityNotFoundException("No product exists. id: $id")
 }

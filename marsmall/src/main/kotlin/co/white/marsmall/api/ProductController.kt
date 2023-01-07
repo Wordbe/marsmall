@@ -1,4 +1,4 @@
-package co.white.marsmall.controller
+package co.white.marsmall.api
 
 import co.white.marsmall.domain.product.service.ProductService
 import co.white.marsmall.dto.ProductRequest

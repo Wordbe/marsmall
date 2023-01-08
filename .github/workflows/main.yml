@@ -9,16 +9,18 @@ jobs:
     permissions:
       contents: read
       packages: write
-
+    defaults:
+      run:
+        working-directory: marsmall
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Execute gradle build
-        run: ./marsmall/gradlew build --no-daemon -x test
+        run: ./gradlew build --no-daemon -x test
 
       - name: Start springboot
         run: |
           RUNNER_TRACKING_ID="" # Prevent the github action from cleaning up orphan processes (background)
-          chmod +x ./marsmall/scripts/springboot.sh
-          timeout 300s ./marsmall/scripts/springboot.sh
+          chmod +x ./scripts/springboot.sh
+          timeout 300s ./scripts/springboot.sh

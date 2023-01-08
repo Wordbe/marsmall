@@ -3,7 +3,7 @@ spring:
     name: marsmall
   config:
     import:
-      - classpath:/secret/config.yml
+      - optional:classpath:/secret/config.yml
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:

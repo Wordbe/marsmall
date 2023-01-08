@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROJECT=marsmall
-REPO="/home/ec2-user/actions-runner/_work/$PROJECT"
+REPO="/home/ec2-user/actions-runner/_work/$PROJECT/$PROJECT"
 LOG_PATH="/var/app/log/$PROJECT.log"
 
 CURR_PID=$(pgrep -f ${PROJECT}.*.jar)

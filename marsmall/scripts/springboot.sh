@@ -21,4 +21,4 @@ echo "nohup "java -jar "$JVM_OPTIONS" "$JAR"" > ""$LOG_PATH"" 2>&1 &"
 echo "log path: $LOG_PATH"
 
 # When nohup errors, output errors to log file
-nohup "java -jar $JVM_OPTIONS $JAR" > "$LOG_PATH" 2>&1 &
+nohup /bin/bash -c "java -jar $JVM_OPTIONS $JAR" > "$LOG_PATH" 2>&1 &

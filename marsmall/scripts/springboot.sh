@@ -3,7 +3,6 @@
 PROJECT=marsmall
 REPO="$HOME/actions-runner/_work/$PROJECT/$PROJECT"
 LOG_PATH="$HOME/$PROJECT/$PROJECT.log"
-PROFILE=prod
 
 CURR_PID=$(pgrep -f ${PROJECT}.*.jar)
 if [ -n "$CURR_PID" ]; then
@@ -14,11 +13,12 @@ fi
 
 # extract the largest size jar
 JAR=$(ls -S $REPO/$PROJECT/build/libs/*.jar | head -n 1)
-JVM_OPTIONS="-Dspring.config.import=file:$HOME/$PROJECT/secret/config.yml -Dspring.profiles.active=$PROFILE"
+PROFILES="-Dspring.profiles.active=prod"
+SECRETS="-Dspring.config.import=file:$HOME/$PROJECT/secret/config.yml"
 
 echo "application start: $JAR"
-echo "nohup java -jar ""$JVM_OPTIONS"" ""$JAR"" > ""$LOG_PATH"" 2>&1 &"
+echo "nohup java -jar ""$PROFILES"" ""$SECRETS"" ""$JAR"" > ""$LOG_PATH"" 2>&1 &"
 echo "log path: $LOG_PATH"
 
 # When nohup errors, output errors to log file
-nohup java -jar "$JVM_OPTIONS" "$JAR" > "$LOG_PATH" 2>&1 &
+nohup java -jar "$PROFILES" "$SECRETS" "$JAR" > "$LOG_PATH" 2>&1 &

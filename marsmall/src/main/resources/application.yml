@@ -3,20 +3,21 @@ spring:
     name: marsmall
   config:
     import:
-      - classpath:/secret/datasource.yml
+      - classpath:/secret/config.yml
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-
----
-spring.config.activate.on-profile: dev
-
-spring:
   jpa:
     open-in-view: false
     properties:
       jakarta.persistence.sharedCache.mode: UNSPECIFIED # default
       hibernate:
         format_sql: true
+
+---
+spring.config.activate.on-profile: dev
+
+spring:
+  jpa:
     hibernate:
       ddl-auto: update
 
@@ -35,3 +36,8 @@ logging:
 
 ---
 spring.config.activate.on-profile: prod
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 PROJECT=marsmall
-REPO="/home/ec2-user/actions-runner/_work/$PROJECT/$PROJECT"
-LOG_PATH="/home/ec2-user/$PROJECT/$PROJECT.log"
+REPO="$HOME/actions-runner/_work/$PROJECT/$PROJECT"
+LOG_PATH="$HOME/$PROJECT/$PROJECT.log"
 
 CURR_PID=$(pgrep -f ${PROJECT}.*.jar)
 if [ -n "$CURR_PID" ]; then
@@ -13,6 +13,7 @@ fi
 
 # extract the largest size jar
 JAR=$(ls -S $REPO/$PROJECT/build/libs/*.jar | head -n 1)
+JVM_OPTIONS="-Dspring.profiles.active=dev -Dspring.config.import=$HOME/$PROJECT/secret/config.yml"
 
 echo "application start: $JAR"
 echo "log path: $LOG_PATH"

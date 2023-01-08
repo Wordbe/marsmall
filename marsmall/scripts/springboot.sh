@@ -19,4 +19,4 @@ echo "application start: $JAR"
 echo "log path: $LOG_PATH"
 
 # When nohup errors, output errors to log file
-nohup java -jar "$JAR" > "$LOG_PATH" 2>&1 &
+nohup java -jar "$JVM_OPTIONS" "$JAR" > "$LOG_PATH" 2>&1 &

@@ -2,7 +2,7 @@
 
 PROJECT=marsmall
 REPO="/home/ec2-user/actions-runner/_work/$PROJECT/$PROJECT"
-LOG_PATH="/var/app/log/$PROJECT.log"
+LOG_PATH="/home/ec2-user/$PROJECT/$PROJECT.log"
 
 CURR_PID=$(pgrep -f ${PROJECT}.*.jar)
 if [ -n "$CURR_PID" ]; then

@@ -9,6 +9,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    defaults:
+      run:
+        working-directory: ./marsmall
 
     steps:
       - name: Checkout

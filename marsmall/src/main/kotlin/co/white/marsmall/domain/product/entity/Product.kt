@@ -4,7 +4,7 @@ import co.white.marsmall.domain.common.entity.base.Audit
 import jakarta.persistence.Entity
 
 @Entity
-data class Product(
+class Product(
     var name: String,
     var price: Int,
     var deleted: Boolean = false,

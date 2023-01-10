@@ -1,9 +1,9 @@
 package co.white.marsmall.api
 
 import co.white.marsmall.api.common.ErrorResponse
-import co.white.marsmall.domain.product.productRequest
-import co.white.marsmall.domain.product.productResponse
 import co.white.marsmall.domain.product.service.ProductService
+import co.white.marsmall.domain.productRequest
+import co.white.marsmall.domain.productResponse
 import co.white.marsmall.support.RestControllerTest
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every

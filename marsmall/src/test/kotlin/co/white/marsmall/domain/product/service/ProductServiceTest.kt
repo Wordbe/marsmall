@@ -1,6 +1,6 @@
 package co.white.marsmall.domain.product.service
 
-import co.white.marsmall.domain.product.product
+import co.white.marsmall.domain.product
 import co.white.marsmall.domain.product.repository.ProductRepository
 import co.white.marsmall.dto.ProductResponse
 import io.kotest.core.spec.style.StringSpec

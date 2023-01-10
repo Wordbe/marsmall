@@ -1,6 +1,6 @@
 package co.white.marsmall.domain.product.entity
 
-import co.white.marsmall.domain.product.product
+import co.white.marsmall.domain.product
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -1,4 +1,4 @@
-package co.white.marsmall.domain.product
+package co.white.marsmall.domain
 
 import co.white.marsmall.domain.product.entity.Product
 import co.white.marsmall.dto.ProductRequest

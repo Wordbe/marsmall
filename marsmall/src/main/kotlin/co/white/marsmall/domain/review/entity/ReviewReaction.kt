@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne
 
 @Entity
 class ReviewReaction(
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = LAZY, )
     @JoinColumn(name = "user_id")
     var user: User,
 

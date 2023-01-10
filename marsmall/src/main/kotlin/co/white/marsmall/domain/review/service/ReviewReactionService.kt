@@ -17,7 +17,7 @@ class ReviewReactionService(
 ) {
 
     fun countByReviewIdAndType(reviewId: Long, type: ReviewReactionType): ReviewReactionCountResponse =
-        ReviewReactionCountResponse(reviewReactionRepository.countByReviewIdAndType(reviewId, type))
+        ReviewReactionCountResponse(reviewReactionRepository.countByReviewIdAndTypeAndDeletedFalse(reviewId, type))
 
     @Transactional
     fun toggle(r: ReviewReactionRequest) {
@@ -30,6 +30,7 @@ class ReviewReactionService(
             return
         }
 
+        // 여기서 항상 user, review 쿼리도 같이 실행된다. 해당 id 의 user, review 를 확인하는 로직으로 생각하자. (foreign key check)
         reaction.toggle()
     }
 }

@@ -19,7 +19,7 @@ class ReviewReactionController(
         return reviewReactionService.countByReviewIdAndType(r.reviewId, r.type)
     }
 
-    @PostMapping("/review/reaction")
+    @PostMapping("/review/reaction/toggle")
     fun toggle(@RequestBody r: ReviewReactionRequest) {
         return reviewReactionService.toggle(r)
     }

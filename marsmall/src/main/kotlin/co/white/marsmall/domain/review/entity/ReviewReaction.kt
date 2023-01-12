@@ -2,10 +2,8 @@ package co.white.marsmall.domain.review.entity
 
 import co.white.marsmall.domain.common.entity.base.Audit
 import co.white.marsmall.domain.user.entity.User
-import jakarta.persistence.Entity
+import jakarta.persistence.*
 import jakarta.persistence.FetchType.LAZY
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
 
 @Entity
 class ReviewReaction(
@@ -17,6 +15,7 @@ class ReviewReaction(
     @JoinColumn(name = "review_id")
     var review: Review,
 
+    @Enumerated(value = EnumType.STRING)
     var type: ReviewReactionType,
     private var deleted: Boolean = false
 ) : Audit() {

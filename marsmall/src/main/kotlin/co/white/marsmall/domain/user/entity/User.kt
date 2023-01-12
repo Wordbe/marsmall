@@ -16,7 +16,8 @@ class User(
         email: String,
         name: String,
         password: String,
-        phone: String?) : this(name, email, password, phone) {
+        phone: String?
+    ) : this(name, email, password, phone) {
         this.id = id
     }
 }

@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
+    kotlin("kapt") version "1.7.22"
 }
 
 group = "co.white"
@@ -15,6 +16,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 val mockkVersion = "1.13.3"
 val springMockkVersion = "4.0.0"
 val kotestVersion = "5.5.4"
+val querydslVersion = "5.0.0"
 
 repositories {
     mavenCentral()
@@ -29,6 +31,8 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
+    kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

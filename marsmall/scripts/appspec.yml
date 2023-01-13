@@ -1,5 +1,5 @@
 version: 0.0
-as: linux
+os: linux
 files:
   - source: /
     destination: /home/ec2-user/marsmall/deploy

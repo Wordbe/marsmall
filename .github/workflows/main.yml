@@ -5,10 +5,8 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
-    permissions:
-      contents: read
-      packages: write
+    runs-on: ubuntu-22.04
+
     defaults:
       run:
         working-directory: marsmall
@@ -16,11 +14,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Execute gradle build
-        run: ./gradlew build --no-daemon -x test
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          cache: 'gradle'
 
-      - name: Start springboot
+      - name: Execute gradle build
         run: |
-          RUNNER_TRACKING_ID="" # Prevent the github action from cleaning up orphan processes (background)
-          chmod +x ./scripts/springboot.sh
-          timeout 300s ./scripts/springboot.sh
+          chmod +x gradlew
+          ./gradlew build --no-daemon -x test
+
+      - name: Copy deploy files and zip
+        run: |
+          mkdir -p deploy
+          cp ./build/libs/marsmall-0.0.1-SNAPSHOT.jar ./deploy
+          zip -r -qq -j ./marsmall.zip ./deploy
+      
+      - name: Deliver to AWS S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+          --region ap-northeast-2 \
+          --acl private \
+          ./marsmall.zip s3://mars-deploy-githubaction/

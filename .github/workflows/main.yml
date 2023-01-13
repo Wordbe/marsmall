@@ -35,7 +35,7 @@ jobs:
       - name: Copy deploy files and zip
         run: |
           cp ./build/libs/$APP_NAME-0.0.1-SNAPSHOT.jar ./deploy
-          zip -r -qq -j ./$AWS_S3_BUCKEY_KEY ./deploy
+          zip -r -qq ./$AWS_S3_BUCKEY_KEY ./deploy
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1

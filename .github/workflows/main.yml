@@ -3,13 +3,19 @@ on:
     branches:
       - main
 
+env:
+  APP_NAME: marsmall
+  AWS_REGION: ap-northeast-2
+  AWS_S3_BUCKET: mars-deploy-githubaction
+  AWS_S3_BUCKEY_KEY: marsmall.zip
+
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     defaults:
       run:
-        working-directory: marsmall
+        working-directory: ${{ env.APP_NAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,15 +35,23 @@ jobs:
       - name: Copy deploy files and zip
         run: |
           mkdir -p deploy
-          cp ./build/libs/marsmall-0.0.1-SNAPSHOT.jar ./deploy
-          zip -r -qq -j ./marsmall.zip ./deploy
+          cp ./build/libs/$APP_NAME-0.0.1-SNAPSHOT.jar ./deploy
+          cp ./scripts/* ./deploy
+          zip -r -qq -j ./$APP_NAME.zip ./deploy
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
       
       - name: Deliver to AWS S3
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp --acl private ./$AWS_S3_BUCKEY_KEY s3://$AWS_S3_BUCKET/
+      
+      - name: AWS CodeDeploy
         run: |
-          aws s3 cp \
-          --region ap-northeast-2 \
-          --acl private \
-          ./marsmall.zip s3://mars-deploy-githubaction/
+          aws deploy create-deployment \
+          --application-name mars-codedeploy \
+          --deployment-group-name mars-githubaction-s3-codedeploy \
+          --s3-location bucket=$AWS_S3_BUCKET,bundleType=zip,key=$AWS_S3_BUCKEY_KEY

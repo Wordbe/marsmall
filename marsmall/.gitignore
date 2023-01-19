@@ -38,3 +38,5 @@ out/
 
 # secret
 src/main/resources/secret/
+
+.DS_Store

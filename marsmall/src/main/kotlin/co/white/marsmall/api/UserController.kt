@@ -10,7 +10,7 @@ class UserController(
     private val userService: UserService,
 ) {
 
-    @PostMapping("/user")
+    @PostMapping("/user") // signup
     fun create(@RequestBody userRequest: UserRequest): UserResponse {
         return userService.create(userRequest.toEntity())
     }
@@ -18,5 +18,10 @@ class UserController(
     @GetMapping("/user/{id}")
     fun get(@PathVariable id: Long): UserResponse {
         return userService.getById(id)
+    }
+
+    @GetMapping("/user")
+    fun isEmailUnique(email: String) : Boolean {
+        return userService.isEmailUnique(email)
     }
 }

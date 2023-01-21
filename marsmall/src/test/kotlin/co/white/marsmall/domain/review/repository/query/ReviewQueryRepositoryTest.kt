@@ -1,6 +1,6 @@
 package co.white.marsmall.domain.review.repository.query
 
-import co.white.marsmall.config.QuerydslConfig
+import co.white.marsmall.common.config.QuerydslConfig
 import co.white.marsmall.domain.review
 import co.white.marsmall.domain.review.repository.ReviewRepository
 import co.white.marsmall.dto.ReviewPageParam

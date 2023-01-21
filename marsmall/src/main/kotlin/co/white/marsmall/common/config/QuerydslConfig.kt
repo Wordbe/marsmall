@@ -1,4 +1,4 @@
-package co.white.marsmall.config
+package co.white.marsmall.common.config
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager

@@ -5,14 +5,11 @@ import jakarta.persistence.Entity
 
 @Entity
 class Product(
+    id: Long? = null,
     var name: String,
     var price: Int,
     var deleted: Boolean = false,
-) : Audit() {
-
-    constructor(id: Long? = null, name: String, price: Int, deleted: Boolean = false) : this(name, price, deleted) {
-        this.id = id
-    }
+) : Audit(id = id) {
 
     fun modify(p: Product): Product {
         name = p.name

@@ -2,8 +2,9 @@ package co.white.marsmall.api
 
 import co.white.marsmall.domain.auth.service.AuthService
 import co.white.marsmall.dto.AuthLoginRequest
-import co.white.marsmall.dto.AuthResponse
-import jakarta.servlet.http.HttpServletRequest
+import co.white.marsmall.dto.AuthRefreshRequest
+import co.white.marsmall.dto.AuthLoginResponse
+import co.white.marsmall.dto.AuthRefreshResponse
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -15,14 +16,12 @@ class AuthController(
 ) {
 
     @PostMapping("/auth/login")
-    fun login(@RequestBody request: AuthLoginRequest,
-              req: HttpServletRequest,
-              res: HttpServletResponse): AuthResponse {
-        return authService.login(request, req, res)
+    fun login(@RequestBody authLoginRequest: AuthLoginRequest, res: HttpServletResponse): AuthLoginResponse {
+        return authService.login(authLoginRequest, res)
     }
 
     @PostMapping("/auth/refresh")
-    fun refresh(req: HttpServletRequest, res: HttpServletResponse): AuthResponse {
-        return authService.refresh(req, res)
+    fun refresh(@RequestBody authRefreshRequest: AuthRefreshRequest): AuthRefreshResponse {
+        return authService.refreshAccessToken(authRefreshRequest)
     }
 }

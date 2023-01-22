@@ -8,7 +8,7 @@ import jakarta.persistence.MappedSuperclass
 @MappedSuperclass
 abstract class Id(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?
+    val id: Long?
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

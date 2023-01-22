@@ -17,6 +17,7 @@ val mockkVersion = "1.13.3"
 val springMockkVersion = "4.0.0"
 val kotestVersion = "5.5.4"
 val querydslVersion = "5.0.0"
+val jjwtVersion = "0.11.5"
 
 repositories {
     mavenCentral()
@@ -33,8 +34,15 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
+    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     testRuntimeOnly("com.h2database:h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

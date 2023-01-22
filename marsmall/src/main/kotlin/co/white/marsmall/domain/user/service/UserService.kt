@@ -5,9 +5,9 @@ import co.white.marsmall.domain.user.repository.UserRepository
 import co.white.marsmall.dto.UserResponse
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
@@ -26,6 +26,14 @@ class UserService(
     fun create(user: User): UserResponse {
         user.modifyPassword(passwordEncoder.encode(user.password))
         return UserResponse(userRepository.save(user))
+    }
+
+    @Transactional
+    fun modify(id: Long, requestUser: User): UserResponse {
+        val modifiedUser = findById(id).apply {
+            password = passwordEncoder.encode(requestUser.password)
+        }
+        return UserResponse(modifiedUser)
     }
 
     fun isEmailUnique(email: String): Boolean {

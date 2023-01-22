@@ -30,4 +30,4 @@ fun productResponse(
     createdBy: String = PRODUCT_AUDITOR,
     modifiedAt: LocalDateTime = PRODUCT_AUDITED_AT,
     modifiedBy: String = PRODUCT_AUDITOR,
-) = ProductResponse(id, name, price, createdAt, createdBy, modifiedAt,modifiedBy)
+) = ProductResponse(id, name, price, createdAt, createdBy, modifiedAt, modifiedBy)

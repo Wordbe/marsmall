@@ -5,12 +5,8 @@ import jakarta.persistence.Entity
 
 @Entity
 class Review(
+    id: Long? = null,
     var userId: Long,
     var rate: Int,
     var content: String
-) : Audit() {
-
-    constructor(id: Long? = null, userId: Long, rate: Int, content: String) : this(userId, rate, content) {
-        this.id = id
-    }
-}
+) : Audit(id = id)

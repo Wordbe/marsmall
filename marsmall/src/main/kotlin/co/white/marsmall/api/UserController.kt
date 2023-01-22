@@ -20,6 +20,11 @@ class UserController(
         return userService.getById(id)
     }
 
+    @PutMapping("/user/{id}")
+    fun modify(@PathVariable id: Long, @RequestBody userRequest: UserRequest): UserResponse {
+        return userService.modify(id, userRequest.toEntity())
+    }
+
     @GetMapping("/user")
     fun isEmailUnique(email: String) : Boolean {
         return userService.isEmailUnique(email)

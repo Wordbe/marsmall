@@ -26,7 +26,7 @@ class ReviewReactionService(
         if (reaction == null) {
             val user = userService.findById(r.userId)
             val review = reviewService.findById(r.reviewId)
-            reviewReactionRepository.save(ReviewReaction(user, review, r.type))
+            reviewReactionRepository.save(ReviewReaction(user = user, review = review, type = r.type))
             return
         }
 

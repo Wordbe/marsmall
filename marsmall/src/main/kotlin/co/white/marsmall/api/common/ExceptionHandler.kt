@@ -1,5 +1,6 @@
 package co.white.marsmall.api.common
 
+import io.jsonwebtoken.JwtException
 import jakarta.persistence.EntityNotFoundException
 import mu.KotlinLogging.logger
 import org.springframework.http.HttpStatus
@@ -15,15 +16,27 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(IllegalArgumentException::class, IllegalStateException::class)
     fun handleBadRequest(e: RuntimeException): ResponseEntity<ErrorResponse> {
-        log.error(e) { e.message }
-        return ResponseEntity.badRequest()
-            .body(ErrorResponse(e.message))
+        return errorResponseEntity(e, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleNotFound(e: EntityNotFoundException): ResponseEntity<ErrorResponse> {
+        return errorResponseEntity(e, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(JwtException::class)
+    fun handleJwt(e: JwtException): ResponseEntity<ErrorResponse> {
+        return errorResponseEntity(e, HttpStatus.FORBIDDEN)
+    }
+
+    @ExceptionHandler(RuntimeException::class)
+    fun handleUnknown(e: RuntimeException): ResponseEntity<ErrorResponse> {
+        return errorResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    private fun errorResponseEntity(e: RuntimeException, status: HttpStatus): ResponseEntity<ErrorResponse> {
         log.error(e) { e.message }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        return ResponseEntity.status(status)
             .body(ErrorResponse(e.message))
     }
 }

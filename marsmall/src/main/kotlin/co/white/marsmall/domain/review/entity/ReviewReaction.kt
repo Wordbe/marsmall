@@ -7,6 +7,8 @@ import jakarta.persistence.FetchType.LAZY
 
 @Entity
 class ReviewReaction(
+    id: Long? = null,
+
     @ManyToOne(fetch = LAZY, )
     @JoinColumn(name = "user_id")
     var user: User,
@@ -17,17 +19,9 @@ class ReviewReaction(
 
     @Enumerated(value = EnumType.STRING)
     var type: ReviewReactionType,
-    private var deleted: Boolean = false
-) : Audit() {
 
-    constructor(
-        id: Long? = null,
-        user: User,
-        review: Review,
-        type: ReviewReactionType,
-        deleted: Boolean = false) : this(user, review, type, deleted) {
-        this.id = id
-    }
+    private var deleted: Boolean = false
+) : Audit(id = id) {
 
     fun toggle() {
         deleted = !deleted

@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated
 
 @Entity
 class User(
+    id: Long? = null,
+
     var name: String,
 
     @Column(unique = true)
@@ -18,21 +20,17 @@ class User(
     var phone: String?,
 
     @Enumerated(value = EnumType.STRING)
-    var userRole: UserRole = UserRole.MEMBER
-) : Audit() {
+    var userRole: UserRole = UserRole.MEMBER,
 
-    constructor(
-        id: Long? = null,
-        email: String,
-        name: String,
-        password: String,
-        phone: String?
-    ) : this(name, email, password, phone) {
-        this.id = id
-    }
+    var secretKey: String? = null
+) : Audit(id = id) {
 
     fun modifyPassword(password: String) {
         this.password = password
+    }
+
+    fun modifySecretKey(secretKey: String?) {
+        this.secretKey = secretKey
     }
 }
 

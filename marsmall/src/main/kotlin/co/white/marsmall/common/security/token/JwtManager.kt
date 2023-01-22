@@ -5,6 +5,8 @@ import co.white.marsmall.dto.TokenPayLoad
 import com.google.gson.Gson
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.time.LocalDateTime
@@ -41,17 +43,30 @@ class JwtManager(
             .compact()
     }
 
-    fun getJws(jwt: String, key: Key): Jws<Claims>? {
+    fun getJws(jwt: String, key: Key): Jws<Claims> {
         return Jwts.parserBuilder()
             .setSigningKey(key)
             .build()
             .parseClaimsJws(jwt)
     }
 
-    fun getClaimsNotVerified(jwt: String): TokenPayLoad {
+    fun getJws(jwt: String): Jws<Claims> {
+        return getJws(jwt, accessTokenSecretKey)
+    }
+
+    fun getPayload(jwt: String): TokenPayLoad {
         val chunks = jwt.split(".")
         val payload = String(Decoders.BASE64.decode(chunks[1]))
         return gson.fromJson(payload, TokenPayLoad::class.java)
+    }
+
+    fun extractJwt(req: HttpServletRequest): String {
+        val auth = req.getHeader(HttpHeaders.AUTHORIZATION)
+        if (auth != null && auth.startsWith("Bearer ")) {
+            return auth.substring(7)
+        }
+
+        return ""
     }
 
     private fun toDate(localDateTime: LocalDateTime): Date =

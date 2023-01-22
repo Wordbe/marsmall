@@ -1,6 +1,7 @@
 package co.white.marsmall.api
 
 import co.white.marsmall.domain.user.service.UserService
+import co.white.marsmall.dto.UserModifyRequest
 import co.white.marsmall.dto.UserRequest
 import co.white.marsmall.dto.UserResponse
 import org.springframework.web.bind.annotation.*
@@ -21,8 +22,8 @@ class UserController(
     }
 
     @PutMapping("/user/{id}")
-    fun modify(@PathVariable id: Long, @RequestBody userRequest: UserRequest): UserResponse {
-        return userService.modify(id, userRequest.toEntity())
+    fun modify(@PathVariable id: Long, @RequestBody userModifyRequest: UserModifyRequest): UserResponse {
+        return userService.modify(id, userModifyRequest)
     }
 
     @GetMapping("/user")

@@ -2,6 +2,7 @@ package co.white.marsmall.domain.user.service
 
 import co.white.marsmall.domain.user.entity.User
 import co.white.marsmall.domain.user.repository.UserRepository
+import co.white.marsmall.dto.UserModifyRequest
 import co.white.marsmall.dto.UserResponse
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
@@ -29,9 +30,9 @@ class UserService(
     }
 
     @Transactional
-    fun modify(id: Long, requestUser: User): UserResponse {
+    fun modify(id: Long, request: UserModifyRequest): UserResponse {
         val modifiedUser = findById(id).apply {
-            password = passwordEncoder.encode(requestUser.password)
+            password = passwordEncoder.encode(request.password)
         }
         return UserResponse(modifiedUser)
     }
@@ -40,7 +41,7 @@ class UserService(
         return userRepository.findByEmail(email) == null
     }
 
-    fun checkPassword(user: User, rawPassword: String) {
+    fun validatePassword(user: User, rawPassword: String) {
         if (!passwordEncoder.matches(rawPassword, user.password)) {
             throw IllegalStateException("Password does NOT match.")
         }

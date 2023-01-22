@@ -1,18 +1,17 @@
 package co.white.marsmall.domain.user.entity
 
 import co.white.marsmall.domain.common.entity.base.Audit
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
+import jakarta.persistence.*
+import org.hibernate.annotations.DynamicUpdate
 
+@DynamicUpdate
 @Entity
+@Table(indexes = [Index(name = "idx_user_email", columnList = "email", unique = true)])
 class User(
     id: Long? = null,
 
     var name: String,
 
-    @Column(unique = true)
     var email: String,
 
     var password: String,

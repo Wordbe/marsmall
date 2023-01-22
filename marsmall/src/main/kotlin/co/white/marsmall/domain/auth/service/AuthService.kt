@@ -22,7 +22,7 @@ class AuthService(
     @Transactional
     fun login(authLoginRequest: AuthLoginRequest, res: HttpServletResponse): AuthLoginResponse {
         val user = userService.findByEmail(authLoginRequest.email)
-        userService.validatePassword(user, authLoginRequest.password)
+        userService.checkPassword(user, authLoginRequest.password)
 
         val secretKey = keyManager.refreshTokenSecretKey()
         user.modifySecretKey(secretKey)

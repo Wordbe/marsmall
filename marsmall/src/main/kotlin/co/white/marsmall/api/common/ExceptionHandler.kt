@@ -1,5 +1,6 @@
 package co.white.marsmall.api.common
 
+import co.white.marsmall.common.exception.UnauthorizedException
 import io.jsonwebtoken.JwtException
 import jakarta.persistence.EntityNotFoundException
 import mu.KotlinLogging.logger
@@ -27,6 +28,11 @@ class ExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(JwtException::class)
     fun handleJwt(e: JwtException): ResponseEntity<ErrorResponse> {
         return errorResponseEntity(e, HttpStatus.FORBIDDEN)
+    }
+
+    @ExceptionHandler(UnauthorizedException::class)
+    fun handleJwt(e: UnauthorizedException): ResponseEntity<ErrorResponse> {
+        return errorResponseEntity(e, HttpStatus.UNAUTHORIZED)
     }
 
     @ExceptionHandler(RuntimeException::class)

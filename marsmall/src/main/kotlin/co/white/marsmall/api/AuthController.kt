@@ -1,11 +1,9 @@
 package co.white.marsmall.api
 
 import co.white.marsmall.domain.auth.service.AuthService
-import co.white.marsmall.dto.AuthLoginRequest
-import co.white.marsmall.dto.AuthRefreshRequest
-import co.white.marsmall.dto.AuthLoginResponse
-import co.white.marsmall.dto.AuthRefreshResponse
+import co.white.marsmall.dto.*
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -23,5 +21,15 @@ class AuthController(
     @PostMapping("/auth/refresh")
     fun refresh(@RequestBody authRefreshRequest: AuthRefreshRequest): AuthRefreshResponse {
         return authService.refreshAccessToken(authRefreshRequest)
+    }
+
+    @GetMapping("/oauth/login")
+    fun oauthLogin(): String {
+        return authService.oauthLoginRedirectUri()
+    }
+
+    @GetMapping("/login/oauth2/code/kakao")
+    fun oauthLoginCallback(code: String): KakaoOauthTokenResponse? {
+        return authService.getToken(code)
     }
 }

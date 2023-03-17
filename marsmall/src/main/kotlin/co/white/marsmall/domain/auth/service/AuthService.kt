@@ -2,6 +2,7 @@ package co.white.marsmall.domain.auth.service
 
 import co.white.marsmall.common.security.token.JwtManager
 import co.white.marsmall.common.security.token.KeyManager
+import co.white.marsmall.domain.auth.property.OAuthProperty
 import co.white.marsmall.domain.user.service.UserService
 import co.white.marsmall.dto.*
 import jakarta.servlet.http.HttpServletResponse
@@ -19,12 +20,9 @@ class AuthService(
     private val userService: UserService,
     private val jwtManager: JwtManager,
     private val keyManager: KeyManager,
+    private val oAuthProperty: OAuthProperty,
     private val restTemplate: RestTemplate,
 ) {
-    companion object {
-        const val REST_API_KEY = "8c6fafe6d799a260a9d6922ec76b6d4e"
-        const val REDIRECT_URI = "http://localhost:8080/login/oauth2/code/kakao"
-    }
 
     @Transactional
     fun login(authLoginRequest: AuthLoginRequest, res: HttpServletResponse): AuthLoginResponse {
@@ -51,7 +49,7 @@ class AuthService(
     }
 
     fun oauthLoginRedirectUri(): String {
-        return "https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code"
+        return "https://kauth.kakao.com/oauth/authorize?client_id=${oAuthProperty.restApiKey}&redirect_uri=${oAuthProperty.redirectUri}&response_type=code"
     }
 
     fun getToken(code: String): KakaoOauthTokenResponse? {
@@ -62,8 +60,8 @@ class AuthService(
 
         val body = LinkedMultiValueMap(mapOf(
             "grant_type" to listOf("authorization_code"),
-            "client_id" to listOf(REST_API_KEY),
-            "redirect_uri" to listOf(REDIRECT_URI),
+            "client_id" to listOf(oAuthProperty.restApiKey),
+            "redirect_uri" to listOf(oAuthProperty.redirectUri),
             "code" to listOf(code),
         ))
 

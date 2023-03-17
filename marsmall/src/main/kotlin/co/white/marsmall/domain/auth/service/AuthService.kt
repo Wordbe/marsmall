@@ -58,21 +58,15 @@ class AuthService(
         val headers = HttpHeaders()
         headers.contentType = MediaType.APPLICATION_FORM_URLENCODED
 
-        val body = LinkedMultiValueMap(mapOf(
-            "grant_type" to listOf("authorization_code"),
-            "client_id" to listOf(oAuthProperty.restApiKey),
-            "redirect_uri" to listOf(oAuthProperty.redirectUri),
-            "code" to listOf(code),
-        ))
+        val body = LinkedMultiValueMap(
+            mapOf(
+                "grant_type" to listOf("authorization_code"),
+                "client_id" to listOf(oAuthProperty.restApiKey),
+                "redirect_uri" to listOf(oAuthProperty.redirectUri),
+                "code" to listOf(code),
+            )
+        )
 
-        val httpEntity = HttpEntity(body, headers)
-
-        println(uri)
-        println(httpEntity)
-
-        val response = restTemplate.postForObject(uri, httpEntity, KakaoOauthTokenResponse::class.java)
-        println(response)
-
-        return response
+        return restTemplate.postForObject(uri, HttpEntity(body, headers), KakaoOauthTokenResponse::class.java)
     }
 }

@@ -24,8 +24,8 @@ class AuthController(
     }
 
     @GetMapping("/oauth/login")
-    fun oauthLogin(): String {
-        return authService.oauthLoginRedirectUri()
+    fun oauthLogin(httpServletResponse: HttpServletResponse) {
+        httpServletResponse.sendRedirect(authService.oauthLoginRedirectUri())
     }
 
     @GetMapping("/login/oauth2/code/kakao")
